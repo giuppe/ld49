@@ -4,6 +4,8 @@ import flixel.FlxSprite;
 
 class Stable extends FlxSprite
 {
+	public var discovered:Bool = true;
+
 	public function new()
 	{
 		super();

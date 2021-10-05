@@ -24,6 +24,7 @@ class PlayState extends FlxState
 	var unstables:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
 	var eventUnstables:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
 	var stables:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
+	var invisibles:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
 	var showBear:FlxSprite;
 	var levelNames:Array<String>;
 	var playerPos:Array<FlxPoint>;
@@ -42,8 +43,11 @@ class PlayState extends FlxState
 
 	var currentLevel:Int = 0;
 
+	public var crumbleEvent:Bool = false;
+
 	override public function create()
 	{
+		Registry.currentPlayState = this;
 		levelNames = new Array<String>();
 		playerPos = new Array<FlxPoint>();
 		exitPos = new Array<FlxPoint>();
@@ -93,14 +97,18 @@ class PlayState extends FlxState
 
 				container2.add(stable);
 			}
+			stables.push(container2);
+
+			var container3 = new flixel.group.FlxSpriteGroup();
 			for (u in level.l_Stables.all_Invisible)
 			{
 				var stable = new Stable();
 				stable.setPosition(u.pixelX, u.pixelY);
 				stable.visible = false;
-				container2.add(stable);
+				stable.discovered = false;
+				container3.add(stable);
 			}
-			stables.push(container2);
+			invisibles.push(container3);
 
 			var container3 = new flixel.group.FlxSpriteGroup();
 			for (u in level.l_EventUnstables.all_Platform)
@@ -128,27 +136,6 @@ class PlayState extends FlxState
 				showBearPos.push(FlxPoint.get(level.l_Entities.all_ShowBear[0].pixelX, level.l_Entities.all_ShowBear[0].pixelY));
 			else
 				showBearPos.push(FlxPoint.get(-1, -1));
-			/*
-				// Create a FlxGroup for all level layers
-				var container = new flixel.group.FlxSpriteGroup();
-				add(container);
-
-				// Place it using level world coordinates (in pixels)
-				container.x = level.worldX;
-				container.y = level.worldY;
-
-				// Attach level background image, if any
-				if (level.hasBgImage())
-					container.add(level.getBgSprite());
-
-				// Render layer "Background"
-				level.l_Cavern_background.render(container);
-
-				// Render layer "Collisions"
-				level.l_Collisions.render(container);
-
-				// Render layer "Custom_Tiles"
-				level.l_Custom_tiles.render(container); */
 		}
 		var l = Registry.currentLevel;
 		player.setPosition(playerPos[l].x, playerPos[l].y);
@@ -178,6 +165,7 @@ class PlayState extends FlxState
 		this.add(levels[l]);
 		this.add(stables[l]);
 		this.add(unstables[l]);
+		this.add(invisibles[l]);
 		this.add(eventUnstables[l]);
 		this.add(exit);
 		this.add(key);
@@ -190,16 +178,18 @@ class PlayState extends FlxState
 		this.add(message);
 
 		player.color = FlxColor.CYAN;
-		Registry.crumbleEvent = false;
+		this.crumbleEvent = false;
 		if (levelNames[Registry.currentLevel] != "Twist" && levelNames[Registry.currentLevel] != "Ending")
 		{
 			crumbleTimer = FlxTween.num(0, 1, 6, {
 				onComplete: function(_)
 				{
 					rumbleSound.play();
+					Registry.showBrackets = true;
 					FlxG.camera.shake(0.005, 2, function()
 					{
-						Registry.crumbleEvent = true;
+						Registry.showBrackets = false;
+						this.crumbleEvent = true;
 					});
 				}
 			});
@@ -212,6 +202,7 @@ class PlayState extends FlxState
 
 		currentLevel = Registry.currentLevel;
 		super.create();
+		Registry.showBrackets = false;
 	}
 
 	override public function update(elapsed:Float)
@@ -266,13 +257,30 @@ class PlayState extends FlxState
 			else
 				player.kill();
 		}
-		unstables[Registry.currentLevel].visible = !Registry.showBrackets;
-		if (FlxG.keys.pressed.Q)
+		unstables[Registry.currentLevel].alpha = Registry.showBrackets ? 0.7 : 1.0;
+		if (FlxG.keys.justPressed.Q)
+		{
 			Registry.showBrackets = !Registry.showBrackets;
+		}
+
+		invisibles[Registry.currentLevel].forEachAlive((s:FlxSprite) ->
+		{
+			var st = cast(s, Stable);
+			s.visible = Registry.showBrackets || st.discovered;
+			s.alpha = Registry.showBrackets ? (st.discovered ? 1.0 : 0.3) : 1.0;
+		});
+
 		FlxG.collide(stables[Registry.currentLevel], player, function(a, b)
 		{
 			// var player = cast(b, Player);
 			cast(a, Stable).visible = true;
+			cast(a, Stable).discovered = true;
+		});
+		FlxG.collide(invisibles[Registry.currentLevel], player, function(a, b)
+		{
+			// var player = cast(b, Player);
+			cast(a, Stable).visible = true;
+			cast(a, Stable).discovered = true;
 		});
 		FlxG.overlap(unstables[Registry.currentLevel], player, function(a, b)
 		{
@@ -297,7 +305,7 @@ class PlayState extends FlxState
 			var player = cast(b, Player);
 			var oldVelocity = player.velocity;
 			var oldAcceleration = player.acceleration;
-			if (FlxObject.separateY(a, b) && Registry.crumbleEvent)
+			if (FlxObject.separateY(a, b) && this.crumbleEvent)
 			{
 				trace("crumbling!");
 				cast(a, Unstable).crumble();
@@ -363,7 +371,7 @@ class PlayState extends FlxState
 
 	public function resetState()
 	{
-		Registry.crumbleEvent = false;
+		this.crumbleEvent = false;
 		if (crumbleTimer != null)
 		{
 			crumbleTimer.cancel();
