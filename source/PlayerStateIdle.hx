@@ -12,7 +12,7 @@ class PlayerStateIdle implements PlayerState
 		player.acceleration.y = player.gravity;
 		player.doInputMovement(elapsed);
 
-		if (FlxG.keys.pressed.Z && player.canJump())
+		if (Input.isJustJump && player.canJump())
 		{
 			player.switchState(PlayerStates.JUMP);
 		}

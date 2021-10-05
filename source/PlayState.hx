@@ -208,6 +208,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		Input.update(elapsed);
 		if (Registry.gameStarted == false)
 		{
 			crumbleTimer.active = false;
@@ -220,7 +221,7 @@ class PlayState extends FlxState
 		}
 		if (gameOver == true)
 		{
-			if (FlxG.keys.justPressed.X)
+			if (Input.isJustRestart)
 				FlxG.switchState(new PlayState());
 		}
 		#if debug

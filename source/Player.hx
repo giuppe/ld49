@@ -119,11 +119,11 @@ class Player extends FlxSprite
 	{
 		var player = this;
 		var oldX = player.x;
-		if (FlxG.keys.pressed.RIGHT)
+		if (Input.isRight)
 		{
 			player.velocity.x = player.moveSpeed * elapsed;
 		}
-		else if (FlxG.keys.pressed.LEFT)
+		else if (Input.isLeft)
 		{
 			player.velocity.x = -player.moveSpeed * elapsed;
 		}
