@@ -30,6 +30,7 @@ class PlayState extends FlxTransitionableState
 	var showBear:FlxSprite;
 	var levelNames:Array<String>;
 	var playerPos:Array<FlxPoint>;
+	var playerFacingLeft:Array<Bool>;
 	var exitPos:Array<FlxPoint>;
 	var keyPos:Array<FlxPoint>;
 	var bearPos:Array<FlxPoint>;
@@ -52,6 +53,7 @@ class PlayState extends FlxTransitionableState
 		Registry.currentPlayState = this;
 		levelNames = new Array<String>();
 		playerPos = new Array<FlxPoint>();
+		playerFacingLeft = new Array<Bool>();
 		exitPos = new Array<FlxPoint>();
 		keyPos = new Array<FlxPoint>();
 		bearPos = new Array<FlxPoint>();
@@ -123,6 +125,7 @@ class PlayState extends FlxTransitionableState
 			eventUnstables.push(container3);
 
 			playerPos.push(FlxPoint.get(level.l_Entities.all_Player[0].pixelX, level.l_Entities.all_Player[0].pixelY));
+			playerFacingLeft.push(level.l_Entities.all_Player[0].f_FacingLeft);
 			exitPos.push(FlxPoint.get(level.l_Entities.all_Exit[0].pixelX, level.l_Entities.all_Exit[0].pixelY));
 			if (level.l_Entities.all_Key[0] != null)
 				keyPos.push(FlxPoint.get(level.l_Entities.all_Key[0].pixelX, level.l_Entities.all_Key[0].pixelY));
@@ -141,6 +144,8 @@ class PlayState extends FlxTransitionableState
 		}
 		var l = Registry.currentLevel;
 		player.setPosition(playerPos[l].x, playerPos[l].y);
+		if (playerFacingLeft[l])
+			player.animation.play("idleleft");
 		exit.setPosition(exitPos[l].x, exitPos[l].y);
 		key.setPosition(keyPos[l].x, keyPos[l].y);
 
