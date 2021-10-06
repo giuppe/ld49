@@ -368,6 +368,7 @@ class PlayState extends FlxTransitionableState
 		else
 		{
 			Registry.currentLevel++;
+			this.transOut = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
 			resetState();
 		}
 	}
@@ -379,10 +380,9 @@ class PlayState extends FlxTransitionableState
 		{
 			crumbleTimer.cancel();
 		}
-
-		FlxG.camera.fade(FlxColor.BLACK, () ->
-		{
-			FlxG.switchState(new PlayState());
-		});
+		var transIn = null;
+		if (Registry.currentLevel != this.currentLevel)
+			transIn = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
+		FlxG.switchState(new PlayState(transIn));
 	}
 }
