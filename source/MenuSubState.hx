@@ -27,7 +27,8 @@ class MenuSubState extends FlxSubState
 
 	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.anyJustPressed([FlxKey.Z, FlxKey.X, FlxKey.SPACE,]))
+		Input.update(elapsed);
+		if (Input.isJustStart)
 		{
 			Registry.gameStarted = true;
 			this.close();
