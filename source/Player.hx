@@ -17,7 +17,7 @@ class Player extends FlxSprite
 
 	public var gravity(default, null):Float = 600;
 	public var jumpSpeed(default, null):Float = 200;
-	public var moveSpeed(default, null):Float = 3180;
+	public var moveSpeed(default, null):Float = 3980;
 
 	public var fallingSound:FlxSound;
 	public var whirringSound:FlxSound;
