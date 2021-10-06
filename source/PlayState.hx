@@ -5,6 +5,8 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.TransitionData;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
@@ -13,7 +15,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import haxe.Timer;
 
-class PlayState extends FlxState
+class PlayState extends FlxTransitionableState
 {
 	var player:Player;
 	var exit:Exit;

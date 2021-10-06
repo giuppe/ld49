@@ -36,6 +36,7 @@
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
 	<haxelib name="deepnightLibs" />
 	<haxelib name="ldtk-haxe-api" />
 
