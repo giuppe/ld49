@@ -54,12 +54,18 @@ class EndState extends FlxState
 
 		endMessage.showMessage("Made by kumber for Ludum Dare 49 - Theme: Unstable");
 		endMessage2.showMessage("Thank you for playing!");
-		endMessage2.y += 50;
+		endMessage3.showMessage("(You did not find Green's plushie)");
+		endMessage2.y += 25;
+		endMessage3.y += 50;
 		// endMessage3.showMessage("You did not find the bear.");
 		this.add(endMessage);
 		this.add(endMessage2);
+		this.add(endMessage3);
 		var rocket = new FlxSprite();
-		rocket.loadGraphic(AssetPaths.endrocket__png);
+		if (Registry.gotBear)
+			rocket.loadGraphic(AssetPaths.endrocket_bear__png);
+		else
+			rocket.loadGraphic(AssetPaths.endrocket__png);
 		this.add(rocket);
 	}
 }

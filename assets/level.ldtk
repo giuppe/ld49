@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 30,
+	"nextUid": 31,
 	"worldLayout": "LinearVertical",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -206,7 +206,31 @@
 			"limitBehavior": "MoveLastOne",
 			"pivotX": 0.5,
 			"pivotY": 1,
-			"fieldDefs": []
+			"fieldDefs": [
+				{
+					"identifier": "FacingLeft",
+					"__type": "Bool",
+					"uid": 30,
+					"type": "F_Bool",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": {
+						"id": "V_Bool",
+						"params": [ false ]
+					},
+					"textLanguageMode": null
+				}
+			]
 		},
 		{
 			"identifier": "Exit",
@@ -995,7 +1019,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [176,192],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Bear",
@@ -1901,7 +1925,16 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [400,224],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "FacingLeft",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 30,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Key",
@@ -2906,7 +2939,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [48,224],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -3181,8 +3214,7 @@
 						{ "px": [160,128], "src": [32,64], "f": 0, "t": 9, "d": [65] },
 						{ "px": [192,128], "src": [0,64], "f": 0, "t": 8, "d": [66] },
 						{ "px": [224,128], "src": [64,64], "f": 0, "t": 10, "d": [67] },
-						{ "px": [192,160], "src": [96,64], "f": 0, "t": 11, "d": [81] },
-						{ "px": [64,192], "src": [64,96], "f": 0, "t": 14, "d": [92] }
+						{ "px": [192,160], "src": [96,64], "f": 0, "t": 11, "d": [81] }
 					],
 					"entityInstances": []
 				},
@@ -3391,6 +3423,17 @@
 							"defUid": 12,
 							"px": [64,224],
 							"fieldInstances": []
+						},
+						{
+							"__identifier": "Platform",
+							"__grid": [14,7],
+							"__pivot": [0,0],
+							"__tile": { "tilesetUid": 16, "srcRect": [0,0,32,32] },
+							"width": 32,
+							"height": 32,
+							"defUid": 12,
+							"px": [448,224],
+							"fieldInstances": []
 						}
 					]
 				},
@@ -3475,7 +3518,16 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [432,224],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "FacingLeft",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 30,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Exit",
@@ -3536,7 +3588,6 @@
 						{ "px": [448,160], "src": [96,0], "f": 0, "t": 3, "d": [89] },
 						{ "px": [0,192], "src": [32,32], "f": 0, "t": 5, "d": [90] },
 						{ "px": [32,192], "src": [64,0], "f": 0, "t": 2, "d": [91] },
-						{ "px": [64,192], "src": [64,128], "f": 0, "t": 18, "d": [92] },
 						{ "px": [128,192], "src": [32,192], "f": 0, "t": 25, "d": [94] },
 						{ "px": [160,192], "src": [0,192], "f": 0, "t": 24, "d": [95] },
 						{ "px": [192,192], "src": [64,192], "f": 0, "t": 26, "d": [96] },
@@ -4219,7 +4270,16 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [368,32],
-							"fieldInstances": []
+							"fieldInstances": [{
+								"__identifier": "FacingLeft",
+								"__value": true,
+								"__type": "Bool",
+								"defUid": 30,
+								"realEditorValues": [{
+									"id": "V_Bool",
+									"params": [ true ]
+								}]
+							}]
 						},
 						{
 							"__identifier": "Exit",
@@ -5091,7 +5151,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [176,192],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -6029,7 +6089,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [16,64],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Exit",
@@ -6758,7 +6818,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [16,64],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						}
 					]
 				},
@@ -7318,7 +7378,7 @@
 							"height": 32,
 							"defUid": 5,
 							"px": [16,224],
-							"fieldInstances": []
+							"fieldInstances": [{ "__identifier": "FacingLeft", "__value": false, "__type": "Bool", "defUid": 30, "realEditorValues": [] }]
 						},
 						{
 							"__identifier": "Exit",
