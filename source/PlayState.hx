@@ -148,7 +148,7 @@ class PlayState extends FlxTransitionableState
 				showBearPos.push(FlxPoint.get(-1, -1));
 		}
 		var l = Registry.currentLevel;
-		player.setPosition(playerPos[l].x, playerPos[l].y);
+		player.setPositionFromEntity(playerPos[l].x, playerPos[l].y);
 		if (playerFacingLeft[l])
 			player.animation.play("idleleft");
 		exit.setPosition(exitPos[l].x, exitPos[l].y);
@@ -216,6 +216,9 @@ class PlayState extends FlxTransitionableState
 		super.create();
 		Registry.showBrackets = false;
 		restartTimer = new FlxTimer();
+		#if debug
+		this.add((new FlxSprite(exit.x + exit.width - player.width, exit.y + exit.height - player.height)).makeGraphic(1, 1));
+		#end
 	}
 
 	override public function update(elapsed:Float)
@@ -395,9 +398,9 @@ class PlayState extends FlxTransitionableState
 		if (Registry.currentLevel != this.currentLevel)
 			transIn = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
 		var timer = new FlxTimer();
-		// timer.start(1, (_) ->
-		// {
-		FlxG.switchState(new PlayState(transIn));
-		// });
+		timer.start(1, (_) ->
+		{
+			FlxG.switchState(new PlayState(transIn));
+		});
 	}
 }
