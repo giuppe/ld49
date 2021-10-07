@@ -13,12 +13,15 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import haxe.Timer;
 
 class PlayState extends FlxTransitionableState
 {
 	var player:Player;
-	var exit:Exit;
+
+	public var exit:Exit;
+
 	var key:Key;
 	var bear:Bear;
 	var levels:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
@@ -47,6 +50,8 @@ class PlayState extends FlxTransitionableState
 	var currentLevel:Int = 0;
 
 	public var crumbleEvent:Bool = false;
+
+	var restartTimer:FlxTimer;
 
 	override public function create()
 	{
@@ -210,6 +215,7 @@ class PlayState extends FlxTransitionableState
 		currentLevel = Registry.currentLevel;
 		super.create();
 		Registry.showBrackets = false;
+		restartTimer = new FlxTimer();
 	}
 
 	override public function update(elapsed:Float)
@@ -226,21 +232,21 @@ class PlayState extends FlxTransitionableState
 			if (crumbleTimer != null)
 				crumbleTimer.active = true;
 		}
-		if (gameOver == true)
-		{
-			if (Input.isJustRestart)
-				FlxG.switchState(new PlayState());
-		}
+
 		#if debug
 		if (FlxG.keys.justPressed.L)
 			nextLevel();
 		if (FlxG.keys.justPressed.K)
 			FlxG.switchState(new EndCinematicState());
 		#end
-		if (!player.alive && levelNames[currentLevel] != "Twist")
+		if (!player.alive && levelNames[currentLevel] != "Twist" && gameOver == false)
 		{
-			message.showMessage("Press X to restart level.");
+			// message.showMessage("Press X to restart level.");
 			gameOver = true;
+			restartTimer.start(1, (_) ->
+			{
+				FlxG.switchState(new PlayState());
+			});
 		}
 		if (player.keyAcquired && !exit.isOpen)
 		{
@@ -388,6 +394,10 @@ class PlayState extends FlxTransitionableState
 		var transIn = null;
 		if (Registry.currentLevel != this.currentLevel)
 			transIn = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
+		var timer = new FlxTimer();
+		// timer.start(1, (_) ->
+		// {
 		FlxG.switchState(new PlayState(transIn));
+		// });
 	}
 }
