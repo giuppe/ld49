@@ -21,12 +21,6 @@ class Exit extends FlxSprite
 		this.animation.play("closed");
 	}
 
-	override public function setPosition(x:Float = 0, y:Float = 0)
-	{
-		x -= this.width / 2;
-		y -= this.height;
-		super.setPosition(x, y);
-	}
 
 	public function set_isOpen(o:Bool):Bool
 	{

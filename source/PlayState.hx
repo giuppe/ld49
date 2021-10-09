@@ -16,6 +16,8 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import haxe.Timer;
 
+using modifications.FlxSpriteMod;
+
 class PlayState extends FlxTransitionableState
 {
 	var player:Player;
@@ -148,11 +150,11 @@ class PlayState extends FlxTransitionableState
 				showBearPos.push(FlxPoint.get(-1, -1));
 		}
 		var l = Registry.currentLevel;
-		player.setPositionFromEntity(playerPos[l].x, playerPos[l].y);
+		player.setXCenterBottom(playerPos[l].x, playerPos[l].y);
 		if (playerFacingLeft[l])
 			player.animation.play("idleleft");
-		exit.setPosition(exitPos[l].x, exitPos[l].y);
-		key.setPosition(keyPos[l].x, keyPos[l].y);
+		exit.setXCenterBottom(exitPos[l].x, exitPos[l].y);
+		key.setXCenterBottom(keyPos[l].x, keyPos[l].y);
 
 		if (key.x < 0)
 			player.keyAcquired = true;
