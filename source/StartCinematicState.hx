@@ -16,18 +16,22 @@ class StartCinematicState extends FlxState
 	var greenPlayer:FlxSprite = new FlxSprite();
 	var bluePlayer:FlxSprite = new FlxSprite();
 
+	var GREEN = 0x6abe30;
+	var RED = 0xd95763;
+	var BLUE = 0x5fcde4;
+
 	override public function create()
 	{
-		pinkMessage.color = FlxColor.MAGENTA;
-		greenMessage.color = FlxColor.GREEN;
-		blueMessage.color = FlxColor.CYAN;
+		pinkMessage.color = RED;
+		greenMessage.color = GREEN;
+		blueMessage.color = BLUE;
 
 		pinkPlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		pinkPlayer.color = FlxColor.MAGENTA;
+		pinkPlayer.color = RED;
 		greenPlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		greenPlayer.color = FlxColor.GREEN;
+		greenPlayer.color = GREEN;
 		bluePlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		bluePlayer.color = FlxColor.CYAN;
+		bluePlayer.color = BLUE;
 		var project = new LdtkProject();
 		var levels:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();
 		var foregrounds:Array<FlxSpriteGroup> = new Array<FlxSpriteGroup>();

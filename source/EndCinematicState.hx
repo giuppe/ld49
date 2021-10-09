@@ -20,22 +20,25 @@ class EndCinematicState extends FlxState
 	var emitter1 = new FlxEmitter();
 	var emitter2 = new FlxEmitter();
 	var rocketSound:FlxSound;
+    var GREEN = 0x6abe30;
+    var RED = 0xd95763;
+    var BLUE = 0x5fcde4;
 
 	override public function create()
 	{
 		rocketSound = FlxG.sound.load(AssetPaths.ld49_rocket__wav, true);
-		pinkMessage.color = FlxColor.MAGENTA;
+		pinkMessage.color = RED;
 
-		greenMessage.color = FlxColor.GREEN;
+		greenMessage.color = GREEN;
 
 		pinkPlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		pinkPlayer.color = FlxColor.MAGENTA;
+		pinkPlayer.color = RED;
 
 		greenPlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		greenPlayer.color = FlxColor.GREEN;
+		greenPlayer.color = GREEN;
 
 		bluePlayer.loadGraphic("assets/images/Sprite-0001-Sheet.png", true, 32, 32);
-		bluePlayer.color = FlxColor.CYAN;
+		bluePlayer.color = BLUE;
 
 		emitter1.acceleration.start.min.y = 550;
 		emitter1.acceleration.start.max.y = 600;
