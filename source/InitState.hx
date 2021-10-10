@@ -20,7 +20,7 @@ class InitState extends FlxState
 		FlxTransitionableState.defaultTransIn = new TransitionData(TransitionType.TILES, FlxColor.BLACK, 0.5, FlxPoint.get(-1, 0), tileData);
 		FlxTransitionableState.defaultTransOut = new TransitionData(TransitionType.TILES, FlxColor.BLACK, 0.5, FlxPoint.get(-1, 0), tileData);
 
-		FlxG.scaleMode = new FillScaleMode();
+		FlxG.scaleMode = new RatioScaleMode();
 		FlxG.switchState(new PlayState());
 	}
 }
