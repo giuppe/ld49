@@ -55,8 +55,13 @@ class PlayState extends FlxTransitionableState
 
 	var restartTimer:FlxTimer;
 
+	var GREEN = 0x6abe30;
+	var RED = 0xd95763;
+	var BLUE = 0x5fcde4;
+
 	override public function create()
 	{
+		FlxG.camera.pixelPerfectRender = true;
 		Registry.currentPlayState = this;
 		levelNames = new Array<String>();
 		playerPos = new Array<FlxPoint>();
@@ -71,6 +76,7 @@ class PlayState extends FlxTransitionableState
 		key = new Key();
 
 		message = new ScreenMessage();
+		message.color = RED;
 
 		var project = new LdtkProject();
 
@@ -191,7 +197,7 @@ class PlayState extends FlxTransitionableState
 		this.add(foregrounds[l]);
 		this.add(message);
 
-		player.color = FlxColor.CYAN;
+		player.color = BLUE;
 		this.crumbleEvent = false;
 		if (levelNames[Registry.currentLevel] != "Twist" && levelNames[Registry.currentLevel] != "Ending")
 		{
