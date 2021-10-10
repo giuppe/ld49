@@ -84,9 +84,9 @@ class Input
 		for (t in ongoingTouches)
 		{
 			touched = true;
-			if (t.pageY > 128)
+			if (t.pageY > js.Browser.window.innerHeight / 2)
 			{
-				if (t.pageX < 240)
+				if (t.pageX < js.Browser.window.innerWidth / 2)
 					leftTouched = true;
 				else
 					rightTouched = true;
