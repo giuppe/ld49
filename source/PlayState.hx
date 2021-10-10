@@ -384,7 +384,7 @@ class PlayState extends FlxTransitionableState
 		else
 		{
 			Registry.currentLevel++;
-			this.transOut = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
+			this.transOut.direction = FlxPoint.get(0, -1);
 			resetState();
 		}
 	}
@@ -398,11 +398,11 @@ class PlayState extends FlxTransitionableState
 		}
 		var transIn = null;
 		if (Registry.currentLevel != this.currentLevel)
-			transIn = new TransitionData(TILES, FlxColor.BLACK, FlxPoint.get(0, -1));
+			this.transIn.direction = FlxPoint.get(0, -1);
 		var timer = new FlxTimer();
 		timer.start(1, (_) ->
 		{
-			FlxG.switchState(new PlayState(transIn));
+			FlxG.switchState(new PlayState());
 		});
 	}
 }
