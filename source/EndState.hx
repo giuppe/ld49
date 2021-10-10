@@ -54,6 +54,7 @@ class EndState extends FlxState
 
 		endMessage.showMessage("Made by kumber for Ludum Dare 49 - Theme: Unstable");
 		endMessage2.showMessage("Thank you for playing!");
+		if (!Registry.gotBear)
 		endMessage3.showMessage("(You did not find Green's plushie)");
 		endMessage2.y += 25;
 		endMessage3.y += 50;
