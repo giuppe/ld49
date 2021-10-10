@@ -15,7 +15,10 @@ class MenuSubState extends FlxSubState
 
 		title.screenCenter();
 		this.add(title);
-		var explain = new FlxText(0, 0, 300, "Z to jump, Arrow keys to move\nPress Z to start");
+		var explainText = "Z to jump, Arrow keys to move\nPress Z to start";
+		if (Input.isTouchDevice())
+			explainText = "Tap to start";
+		var explain = new FlxText(0, 0, 300, explainText);
 		explain.addFormat(new FlxTextFormat(FlxColor.WHITE, false, false, FlxColor.BLACK));
 		explain.borderColor = FlxColor.BLACK;
 		explain.alignment = FlxTextAlign.CENTER;
