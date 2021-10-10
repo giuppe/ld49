@@ -11,6 +11,7 @@ import flixel.system.scaleModes.PixelPerfectScaleMode;
 import flixel.system.scaleModes.RatioScaleMode;
 import flixel.system.scaleModes.RelativeScaleMode;
 import flixel.util.FlxColor;
+import kmbr.gfx.EvenRatioScaleMode;
 
 class InitState extends FlxState
 {
@@ -19,8 +20,8 @@ class InitState extends FlxState
 		var tileData:TransitionTileData = {asset: AssetPaths.diamond__png, width: 32, height: 32,};
 		FlxTransitionableState.defaultTransIn = new TransitionData(TransitionType.TILES, FlxColor.BLACK, 0.5, FlxPoint.get(-1, 0), tileData);
 		FlxTransitionableState.defaultTransOut = new TransitionData(TransitionType.TILES, FlxColor.BLACK, 0.5, FlxPoint.get(-1, 0), tileData);
-
-		FlxG.scaleMode = new RatioScaleMode();
+		FlxG.camera.pixelPerfectRender = true;
+		FlxG.scaleMode = new EvenRatioScaleMode();
 		FlxG.switchState(new PlayState());
 	}
 }
