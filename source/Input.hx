@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
 import haxe.Json;
+import kmbr.html.SVGUtils;
 #if js
 import js.Syntax;
 #end
@@ -237,75 +238,33 @@ class Input
 	public static function initTouchButtons()
 	{
 		#if js
-		function createSVGButton(width:Int, height:Int):js.html.Element
-		{
-			var svg1 = js.Browser.window.document.createElementNS("http://www.w3.org/2000/svg", "svg");
-			svg1.setAttribute("width", Std.string(width));
-			svg1.setAttribute("height", Std.string(height));
-
-			var rect = js.Browser.window.document.createElementNS("http://www.w3.org/2000/svg", "rect");
-			rect.setAttribute("x", "0");
-			rect.setAttribute("y", "0");
-			rect.setAttribute("width", Std.string(width));
-			rect.setAttribute("height", Std.string(height));
-			rect.setAttribute("rx", "15");
-			rect.setAttribute("stroke", "#aaaaaa");
-			rect.setAttribute("stroke-width", "3");
-			rect.setAttribute("fill", "#555555");
-			svg1.appendChild(rect);
-			return svg1;
-		}
-
-		function createArrow(width:Int, height:Int, direction:ArrowDirection, padding:Int = 10):js.html.Element
-		{
-			var path = js.Browser.window.document.createElementNS("http://www.w3.org/2000/svg", "polyline");
-			var startPoint = FlxPoint.get();
-			var middlePoint = FlxPoint.get();
-			var endPoint = FlxPoint.get();
-			switch (direction)
-			{
-				case LEFT:
-					startPoint.set(width * 2 / 3, padding);
-					endPoint.set(width * 2 / 3, height - padding);
-					middlePoint.set(padding, height / 2);
-				case RIGHT:
-					startPoint.set(width / 3, padding);
-					endPoint.set(width / 3, height - padding);
-					middlePoint.set(width - padding, height / 2);
-				case UP:
-					middlePoint.set(width / 2, padding);
-					endPoint.set(width - padding, height * 2 / 3);
-					startPoint.set(padding, height * 2 / 3);
-				case DOWN:
-					middlePoint.set(width / 2, height - padding);
-					endPoint.set(width - padding, height / 3);
-					startPoint.set(padding, height / 3);
-			}
-			var pointsString = '${startPoint.x},${startPoint.y} ${middlePoint.x},${middlePoint.y} ${endPoint.x},${endPoint.y}';
-			path.setAttribute("points", pointsString);
-			path.setAttribute("style", "fill:none;stroke:black;stroke-width:3");
-			return path;
-		}
 		var doc = js.Browser.window.document;
 
-		var svg1 = createSVGButton(100, 100);
+		var svg1 = SVGUtils.createSVGButton(100, 100);
 		svg1.setAttribute("style", "position: absolute;bottom: 20px;left: 20px;opacity:0.3;");
 
-		svg1.appendChild(createArrow(100, 100, LEFT));
+		svg1.appendChild(SVGUtils.createArrow(100, 100, LEFT));
 
-		var svg2 = createSVGButton(100, 100);
+		var svg2 = SVGUtils.createSVGButton(100, 100);
 		svg2.setAttribute("style", "position: absolute;bottom: 20px;left: 140px;opacity:0.3;");
 
-		svg2.appendChild(createArrow(100, 100, RIGHT));
+		svg2.appendChild(SVGUtils.createArrow(100, 100, RIGHT));
 
-		var svg3 = createSVGButton(100, 100);
+		var svg3 = SVGUtils.createSVGButton(100, 100);
 		svg3.setAttribute("style", "position: absolute;bottom: 20px;right: 20px;opacity:0.3;");
 
-		svg3.appendChild(createArrow(100, 100, UP));
+		svg3.appendChild(SVGUtils.createArrow(100, 100, UP));
+
+		var svg4 = SVGUtils.createSVGButton(100, 100);
+		svg4.setAttribute("style", "position: absolute;top: 20px;right: 20px;opacity:0.3;");
+		var fullscreenIcon = SVGUtils.createIconFullscreen(100, 100);
+		for (f in fullscreenIcon)
+			svg4.appendChild(f);
 
 		doc.body.appendChild(svg1);
 		doc.body.appendChild(svg2);
 		doc.body.appendChild(svg3);
+		doc.body.appendChild(svg4);
 		#end
 	}
 
@@ -316,13 +275,4 @@ class Input
 		#end
 		return false;
 	}
-}
-
-@:enum
-abstract ArrowDirection(String) to String
-{
-	var LEFT = "left";
-	var DOWN = "down";
-	var UP = "up";
-	var RIGHT = "right";
 }

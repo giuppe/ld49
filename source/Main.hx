@@ -12,6 +12,9 @@ class Main extends Sprite
 
 		#if js
 		Input.initTouch();
+		#if debug
+		Input.initTouchButtons();
+		#end
 		#end
 	}
 }
